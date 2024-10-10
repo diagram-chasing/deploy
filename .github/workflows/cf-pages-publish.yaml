@@ -39,10 +39,6 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Build artifact
-        run: |
-          pnpm run build
-        
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
