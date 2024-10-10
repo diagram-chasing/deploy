@@ -1,5 +1,5 @@
 # Workflow for deploying to Cloudflare Pages as Preview
-name: Deploy to Cloudflare Pages as Preview
+name: Preview Deploy
 
 on:
   # Runs on pushes targeting the default branch

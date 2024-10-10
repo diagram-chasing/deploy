@@ -1,5 +1,5 @@
 # Workflow for deploying to Cloudflare Pages as Production
-name: Deploy to Cloudflare Pages as Production
+name: Production Deploy
 
 on:
   # Allows you to run this workflow manually from the Actions tab
