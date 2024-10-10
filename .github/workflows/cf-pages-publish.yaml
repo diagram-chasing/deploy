@@ -1,19 +1,14 @@
-# Workflow for deploying to GitHub Pages
-name: Deploy to GitHub Pages
+# Workflow for deploying to Cloudflare Pages as Production
+name: Deploy to Cloudflare Pages as Production
 
 on:
-  # Runs on pushes targeting the default branch
-  push:
-    branches: ["master"]
-
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+# Sets permissions of the GITHUB_TOKEN to allow deployment to Cloudflare Pages
 permissions:
   contents: read
-  pages: write
-  id-token: write
+  deployments: write
 
 # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
 # However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
@@ -25,7 +20,7 @@ jobs:
   # Single deploy job since we're just deploying
   deploy:
     environment:
-      name: github-pages
+      name: cf-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
@@ -44,13 +39,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-        with:
-          static_site_generator: "sveltekit"
       - name: Build artifact
-        env:
-          BASE_PATH: '/${{ github.event.repository.name }}'
         run: |
           pnpm run build
         
@@ -58,6 +47,12 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: 'build/'
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: 'diagram-chasing'
+          directory: 'build'
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          branch: 'master'
