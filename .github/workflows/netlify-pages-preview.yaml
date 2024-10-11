@@ -1,5 +1,5 @@
-# Workflow for deploying to Netlify as Production
-name: Production Deploy
+# Workflow for deploying to Netlify as Preview
+name: Preview Deploy
 
 on:
   # Runs on pushes targeting the default branch
@@ -52,7 +52,6 @@ jobs:
         with:
           alias: "preview"
           publish-dir: './build'
-          production-branch: master
           github-token: ${{ secrets.GITHUB_TOKEN }}
           deploy-message: "Deploy from GitHub Actions"
           enable-pull-request-comment: false
