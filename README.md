@@ -7,8 +7,8 @@ Sample repository for a GitHub Actions workflow to deploy `Preview` and `Product
 ### Cloudflare Pages
 
 - In the GitHub repository, create 2 secrets inside the repository `Settings`:
-    - `CLOUDFLARE_ACCOUNT_ID` 
-    - `CLOUDFLARE_API_TOKEN`
+  - `CLOUDFLARE_ACCOUNT_ID`
+  - `CLOUDFLARE_API_TOKEN`
 - In Cloudflare, create a Pages project with a name `$PROJECT_NAME` and default branch as `master`. Project creation can be done using the `wrangler` CLI provided by Cloudflare: `wrangler pages project create`
 - In the GitHub repository, copy over the `cf-pages-*` files under `.github/workflows` from this repository.
 - Edit the `projectName: 'diagram-chasing'` line near the bottom, replacing `diagram-chasing` with the Pages project name (`$PROJECT_NAME`)
@@ -17,9 +17,11 @@ Sample repository for a GitHub Actions workflow to deploy `Preview` and `Product
 
 - In Netlify, create a Site with a name `$SITE_NAME`. Site creation can be done using the `netlify` CLI provided by Netlify: `netlify sites:create`
 - In the GitHub repository, create 2 secrets inside the repository `Settings`:
-    - `NETLIFY_AUTH_TOKEN` 
-    - `NETLIFY_SITE_ID`
+  - `NETLIFY_AUTH_TOKEN`
+  - `NETLIFY_SITE_ID`
 - In the GitHub repository, copy over the `netlify-*` files under `.github/workflows` from this repository.
+
+- Replace the `baseURL` and `analyticsID` in `package.json` with the Netlify URL and Plausible Analytics ID. Base URL corresponds to where the site is being deployed on Netlify, (no prefix like `preview--`).
 
 ## Using the workflow
 
